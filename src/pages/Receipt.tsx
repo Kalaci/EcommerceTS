@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { ReceiptContext } from "../context/ReceiptProvider";
 import { Button, Typography, Box, List, ListItem, ListItemText, Divider } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 const Receipt = () => {
     const { activeReceipt, removeFromReceipt, clearActiveReceipt, addToPurchaseHistory } = useContext(ReceiptContext);
@@ -9,7 +8,7 @@ const Receipt = () => {
     if (!activeReceipt) {
         return (
             <Box sx={{ padding: "20px" }}>
-                <Typography variant="h6">Your cart is empty.</Typography>
+                <Typography  style={{ color: "#1976d2"}} variant="h6">Your cart is empty.</Typography>
             </Box>
         );
     }
@@ -24,15 +23,17 @@ const Receipt = () => {
     };
 
     return (
-        <Box sx={{ padding: "20px" }}>
-            <Typography variant="h4">Your Cart</Typography>
+        <Box sx={{ padding: "20px", backgroundColor: "#FBFBFB"  }}>
+            <Typography style={{ color: "#1976d2"}} variant="h4">Your Cart</Typography>
             <List>
                 {activeReceipt.items.map((item) => (
                     <div key={item.productId}>
                         <ListItem>
+
                             <ListItemText
                                 primary={item.title}
                                 secondary={`Price: $${item.price} | Quantity: ${item.quantity}`}
+                                style={{ color: "#1976d2"}}
                             />
                             <Button
                                 variant="outlined"
@@ -47,7 +48,7 @@ const Receipt = () => {
                 ))}
             </List>
 
-            <Typography variant="h6" sx={{ marginTop: "20px" }}>
+            <Typography style={{ color: "#1976d2"}} variant="h6" sx={{ marginTop: "20px" } }>
                 Total: ${activeReceipt.totalAmount}
             </Typography>
 

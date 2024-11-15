@@ -1,32 +1,54 @@
 import { useContext } from "react";
 import { ReceiptContext } from "../context/ReceiptProvider";
 import { Receipt } from "../context/ReceiptProvider";
+import  Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card"; 
+import CardContent from "@mui/material/CardContent";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 
 const PurchaseHistory = () => {
     const { receipts } = useContext(ReceiptContext);
 
     return (
-        <div>
-            <h1>Purchase History</h1>
+        <Box sx={{ padding: 2 }}>
+            <Typography variant="h4" color="primary" gutterBottom>
+                Purchase History
+            </Typography>
             {receipts.length === 0 ? (
-                <p>No purchases found.</p>
+                <Typography variant="body1" color="primary">
+                    No purchases found.
+                </Typography>
             ) : (
-                receipts.map((receipt) => (
-                    <div key={receipt.id} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px 0' }}>
-                        <h3>Receipt ID: {receipt.id}</h3>
-                        <p>Total Amount: ${receipt.totalAmount.toFixed(2)}</p>
-                        <h4>Items:</h4>
-                        <ul>
-                            {receipt.items.map((item) => (
-                                <li key={item.productId}>
-                                    {item.title} - Quantity: {item.quantity} - Price: ${item.price}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                receipts.map((receipt: Receipt) => (
+                    <Card key={receipt.id} sx={{ marginBottom: 2, border: "1px solid #ccc" }}>
+                        <CardContent>
+                            <Typography variant="h6" color="primary">
+                                Receipt ID: {receipt.id}
+                            </Typography>
+                            <Typography variant="body1" color="primary">
+                                Total Amount: ${receipt.totalAmount.toFixed(2)}
+                            </Typography>
+                            <Typography variant="subtitle1" color="primary" sx={{ marginTop: 1 }}>
+                                Items:
+                            </Typography>
+                            <List>
+                                {receipt.items.map((item) => (
+                                    <ListItem key={item.productId} disableGutters>
+                                        <ListItemText
+                                            primary={item.title}
+                                            secondary={`Quantity: ${item.quantity} - Price: $${item.price}`}
+                                        />
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </CardContent>
+                    </Card>
                 ))
             )}
-        </div>
+        </Box>
     );
 };
 

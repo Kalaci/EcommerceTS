@@ -1,6 +1,12 @@
 import { useContext, useState } from "react";
 import { ReceiptContext } from "../context/ReceiptProvider";
-import { Card, CardContent, CardMedia, Typography, Grid2, Button, TextField } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import  Typography from "@mui/material/Typography";
+import  Grid2 from "@mui/material/Grid2"; 
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField"
 import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
@@ -18,6 +24,10 @@ const Homepage = () => {
     );
 
     return (
+        <>
+        <Typography variant="h4" color="primary" gutterBottom>
+               SHOP
+        </Typography>
         <div style={{ padding: "20px", backgroundColor: "#FBFBFB" }}>
             <TextField
                 label="Search by product title"
@@ -27,7 +37,7 @@ const Homepage = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{ marginBottom: "20px" }}
             />
-            <Grid2 container spacing={3}>
+            <Grid2 container spacing={3} style={{justifyContent: "center", alignItems: "center"}}>
                 {filteredProducts.length > 0 ? (
                     filteredProducts.map((product) => (
                         <Grid2 size={{ xs: 12, sm: 6, md: 4 }} key={product.id}>
@@ -37,7 +47,8 @@ const Homepage = () => {
                                     height: "400px",
                                     display: "flex",
                                     flexDirection: "column",
-                                    justifyContent: "space-between",
+                                    
+
                                 }}
                                 onClick={() => handleProductClick(product.id)}
                             >
@@ -66,6 +77,7 @@ const Homepage = () => {
                                     <Typography variant="body1" color="text.primary" sx={{ mt: 1 }}>
                                         Price: ${product.price}
                                     </Typography>
+                                    
                                 </CardContent>
                             </Card>
                         </Grid2>
@@ -75,6 +87,7 @@ const Homepage = () => {
                 )}
             </Grid2>
         </div>
+        </>
     );
 };
 

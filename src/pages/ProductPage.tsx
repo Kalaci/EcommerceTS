@@ -5,7 +5,7 @@ import { Button, TextField, Typography, Box, Grid2 } from "@mui/material";
 
 const ProductPage = () => {
     const { id } = useParams(); 
-    const { products, addToReceipt } = useContext(ReceiptContext);
+    const { products, addToReceipt, deleteProduct } = useContext(ReceiptContext);
     const navigate = useNavigate();
     
     const [product, setProduct] = useState<any>(null); 
@@ -28,12 +28,17 @@ const ProductPage = () => {
         addToReceipt(product.id, quantity);
     };
 
+    const handleDeleteProduct = () => {
+        deleteProduct(product.id);
+        navigate('/');
+    };
+
     const handleEditProduct = () => {
         navigate(`/edit-product/${product.id}`);
     };
 
     return (
-        <Box sx={{ padding: "20px" }}>
+        <Box sx={{ padding: "20px", backgroundColor: "#FBFBFB" }}>
             <Grid2 container>
                 <Grid2  size={{xs:12, md:6}} >
                     <img
@@ -43,9 +48,9 @@ const ProductPage = () => {
                 </Grid2>
 
                 <Grid2 size={{xs:12, md:6}} >
-                    <Typography variant="h4">{product.title}</Typography>
-                    <Typography variant="h6">${product.price}</Typography>
-                    <Typography variant="body1" sx={{ marginTop: "10px" }}>
+                    <Typography style={{ color: "#1976d2"}} variant="h4">{product.title}</Typography>
+                    <Typography style={{ color: "#1976d2"}} variant="h6">${product.price}</Typography>
+                    <Typography style={{ color: "#1976d2"}} variant="body1" sx={{ marginTop: "10px" }}>
                         {product.description}
                     </Typography>
 
@@ -55,6 +60,7 @@ const ProductPage = () => {
                         value={quantity}
                         onChange={handleQuantityChange}
                         sx={{ marginTop: "20px", width: "100px", color: "white"}}
+                        
                     />
                     <Box sx={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "20px" }}>
                         <Button variant="contained" color="primary" onClick={handleAddToCart}>
@@ -62,6 +68,9 @@ const ProductPage = () => {
                         </Button>
                         <Button variant="outlined" color="secondary" onClick={handleEditProduct}>
                             Edit Product
+                        </Button>
+                        <Button variant="outlined" color="secondary" onClick={handleDeleteProduct} >
+                            Delete Product
                         </Button>
                     </Box>
                 </Grid2>

@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { TextField, Button, Grid2, Container } from '@mui/material';
 import { ReceiptContext } from "../context/ReceiptProvider";
 import { Product } from '../context/ReceiptProvider';
@@ -77,7 +77,8 @@ const AddProduct = () => {
               fullWidth
               label="Product Image URL"
               variant="outlined"
-              {...register("image")}
+              {...register("image", { required: 'Image is required'})}
+              error={!!errors.image}
             />
           </Grid2>
           <Grid2 size={{xs:12}}>

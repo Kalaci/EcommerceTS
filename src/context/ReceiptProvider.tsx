@@ -40,6 +40,7 @@ interface ReceiptContextType {
     addToPurchaseHistory: () => void;
     addProduct: (product: Product) => Promise<void>;
     editProduct: (product: Product) => Promise<void>;
+    deleteProduct: (productId: number) => void;
 }
 
 const defaultContextValue: ReceiptContextType = {
@@ -52,6 +53,7 @@ const defaultContextValue: ReceiptContextType = {
     addToPurchaseHistory: () => {},
     addProduct: async (product: Product): Promise<void> => {},
     editProduct: async (product: Product): Promise<void> => {},
+    deleteProduct: (productId: number) => {},
 }
 
 
@@ -82,8 +84,14 @@ export const ReceiptProvider = ({ children }: ChildrenType)=>{
     },[])
 
     useEffect(() => {
-        setProducts(fetchedProducts);
-    }, [fetchedProducts]);
+        const storedProducts = JSON.parse(localStorage.getItem("products") || "[]");
+        if (storedProducts.length > 0) {
+          setProducts(storedProducts);
+        } else {
+          setProducts(fetchedProducts);
+          localStorage.setItem("products", JSON.stringify(fetchedProducts));
+        }
+      }, [fetchedProducts]);
 
 
     const saveReceiptToStorage = (activeReceipt: Receipt) => {
@@ -233,6 +241,12 @@ export const ReceiptProvider = ({ children }: ChildrenType)=>{
           }
     }
 
+    const deleteProduct = (productId: number) =>{
+        setProducts((prevProducts) => 
+            prevProducts.filter((item) => item.id !== productId)
+        );
+    }
+
     const value: ReceiptContextType = {
         activeReceipt,
         receipts,
@@ -243,6 +257,7 @@ export const ReceiptProvider = ({ children }: ChildrenType)=>{
         addToPurchaseHistory,
         addProduct,
         editProduct,
+        deleteProduct,
     };
     return (
         <ReceiptContext.Provider value={value}>
