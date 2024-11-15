@@ -47,7 +47,6 @@ const ProductPage = () => {
                     gap: "20px",
                 }}
             >
-                {/* Left: Image Section */}
                 <Box
                     sx={{
                         flex: "1",
@@ -68,7 +67,6 @@ const ProductPage = () => {
                     />
                 </Box>
 
-                {/* Right: Text Section */}
                 <Box
                     sx={{
                         flex: "1",
@@ -93,17 +91,13 @@ const ProductPage = () => {
                         {product.description}
                     </Typography>
 
-
-                    <Box sx={{ display: "flex", flexDirection: "row", gap: "10px", marginTop: "20px" , alignSelf: "center"}}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "20px" }}>
                         <TextField
                             label="Quantity"
                             type="number"
                             value={quantity}
                             onChange={handleQuantityChange}
-                            sx={{
-                                marginTop: "20px",
-                                width: "100px",
-                            }}
+                            sx={{ width: "100px" }}
                         />
                         <Button
                             variant="contained"
@@ -112,6 +106,9 @@ const ProductPage = () => {
                         >
                             Add to Cart
                         </Button>
+                    </Box>
+
+                    <Box sx={{ display: "flex", flexDirection: "row", gap: "10px", marginTop: "20px" }}>
                         <Button variant="outlined" color="secondary" onClick={handleEditProduct}>
                             Edit Product
                         </Button>
