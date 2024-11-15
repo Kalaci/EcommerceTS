@@ -14,7 +14,7 @@ const PurchaseHistory = () => {
 
     return (
         <Box sx={{ padding: 2 }}>
-            <Typography variant="h4" color="primary" gutterBottom>
+            <Typography variant="h4" sx={{color: "#5AB2FF"}} gutterBottom>
                 Purchase History
             </Typography>
             {receipts.length === 0 ? (
@@ -25,7 +25,7 @@ const PurchaseHistory = () => {
                 receipts.map((receipt: Receipt) => (
                     <Card key={receipt.id} sx={{ marginBottom: 2, border: "1px solid #ccc" }}>
                         <CardContent>
-                            <Typography variant="h6" color="primary">
+                            <Typography variant="h6" sx={{color: "#5AB2FF"}}>
                                 Receipt ID: {receipt.id}
                             </Typography>
                             <Typography variant="body1" color="primary">

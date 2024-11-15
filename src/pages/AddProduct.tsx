@@ -37,7 +37,7 @@ const AddProduct = () => {
 
   return (
     <Container maxWidth="sm">
-      <h1 style={{ color: "#1976d2"}}>{id ? 'Edit Product' : 'Add Product'}</h1>
+      <h1 style={{ color: "#5AB2FF"}}>{id ? 'Edit Product' : 'Add Product'}</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid2 container spacing={2}>
           <Grid2 size={{ xs:12}}>
@@ -82,7 +82,7 @@ const AddProduct = () => {
             />
           </Grid2>
           <Grid2 size={{xs:12}}>
-            <Button variant="contained" color="primary" type="submit">
+            <Button variant="contained" type="submit" sx = {{ backgroundColor: "#5AB2FF"}}>
               {id ? 'Update Product' : 'Add Product'}
             </Button>
           </Grid2>

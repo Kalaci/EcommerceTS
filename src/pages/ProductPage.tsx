@@ -1,15 +1,15 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { ReceiptContext } from "../context/ReceiptProvider";
-import { Button, TextField, Typography, Box, Grid2 } from "@mui/material";
+import { Button, TextField, Typography, Box } from "@mui/material";
 
 const ProductPage = () => {
-    const { id } = useParams(); 
+    const { id } = useParams();
     const { products, addToReceipt, deleteProduct } = useContext(ReceiptContext);
     const navigate = useNavigate();
-    
-    const [product, setProduct] = useState<any>(null); 
-    const [quantity, setQuantity] = useState(1); 
+
+    const [product, setProduct] = useState<any>(null);
+    const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
         if (id) {
@@ -38,43 +38,93 @@ const ProductPage = () => {
     };
 
     return (
-        <Box sx={{ padding: "20px", backgroundColor: "#FBFBFB" }}>
-            <Grid2 container>
-                <Grid2  size={{xs:12, md:6}} >
+        <Box sx={{ padding: "20px", backgroundColor: "#FBFBFB", minHeight: "100vh" }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: { xs: "column", md: "row" },
+                    alignItems: "center",
+                    gap: "20px",
+                }}
+            >
+                {/* Left: Image Section */}
+                <Box
+                    sx={{
+                        flex: "1",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
                     <img
                         src={product.image}
-                        style={{ width: "100%", height: "auto", maxWidth: "400px" }}
+                        alt={product.title}
+                        style={{
+                            width: "100%",
+                            height: "auto",
+                            maxWidth: "400px",
+                            borderRadius: "8px",
+                        }}
                     />
-                </Grid2>
+                </Box>
 
-                <Grid2 size={{xs:12, md:6}} >
-                    <Typography style={{ color: "#1976d2"}} variant="h4">{product.title}</Typography>
-                    <Typography style={{ color: "#1976d2"}} variant="h6">${product.price}</Typography>
-                    <Typography style={{ color: "#1976d2"}} variant="body1" sx={{ marginTop: "10px" }}>
+                {/* Right: Text Section */}
+                <Box
+                    sx={{
+                        flex: "1",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "flex-start",
+                        textAlign: "left",
+                        gap: "20px",
+                    }}
+                >
+                    <Typography variant="h4" sx={{ color: "#5AB2FF", fontWeight: "bold" }}>
+                        {product.title}
+                    </Typography>
+                    <Typography variant="h6" sx={{ color: "#5AB2FF" }}>
+                        ${product.price}
+                    </Typography>
+                    <Typography
+                        variant="body1"
+                        sx={{ marginTop: "10px", color: "#555", lineHeight: "1.5" }}
+                    >
                         {product.description}
                     </Typography>
 
-                    <TextField
-                        label="Quantity"
-                        type="number"
-                        value={quantity}
-                        onChange={handleQuantityChange}
-                        sx={{ marginTop: "20px", width: "100px", color: "white"}}
-                        
-                    />
-                    <Box sx={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "20px" }}>
-                        <Button variant="contained" color="primary" onClick={handleAddToCart}>
+
+                    <Box sx={{ display: "flex", flexDirection: "row", gap: "10px", marginTop: "20px" , alignSelf: "center"}}>
+                        <TextField
+                            label="Quantity"
+                            type="number"
+                            value={quantity}
+                            onChange={handleQuantityChange}
+                            sx={{
+                                marginTop: "20px",
+                                width: "100px",
+                            }}
+                        />
+                        <Button
+                            variant="contained"
+                            sx={{ backgroundColor: "#5AB2FF", color: "#FFF" }}
+                            onClick={handleAddToCart}
+                        >
                             Add to Cart
                         </Button>
                         <Button variant="outlined" color="secondary" onClick={handleEditProduct}>
                             Edit Product
                         </Button>
-                        <Button variant="outlined" color="secondary" onClick={handleDeleteProduct} >
+                        <Button
+                            variant="outlined"
+                            sx={{ color: "red", borderColor: "red" }}
+                            onClick={handleDeleteProduct}
+                        >
                             Delete Product
                         </Button>
                     </Box>
-                </Grid2>
-            </Grid2>
+                </Box>
+            </Box>
         </Box>
     );
 };
