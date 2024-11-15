@@ -1,0 +1,5 @@
+.navBarBody{
+    display: flex;
+    background-color: aliceblue;
+    padding: 10px;
+}
